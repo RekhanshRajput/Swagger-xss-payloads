@@ -1,0 +1,9 @@
+{
+    "url": "https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/server-hijack-multi.yaml",
+    "urls": [
+        {
+            "url": "https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/server-hijack-multi.yaml",
+            "name": "server-hijack-multi"
+        }
+    ]
+}

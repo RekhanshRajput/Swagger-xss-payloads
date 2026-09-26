@@ -1,0 +1,9 @@
+{
+    "url": "https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/redirect-window-open.yaml",
+    "urls": [
+        {
+            "url": "https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/redirect-window-open.yaml",
+            "name": "redirect-window-open"
+        }
+    ]
+}

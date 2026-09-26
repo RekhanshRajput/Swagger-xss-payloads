@@ -1,0 +1,9 @@
+{
+    "url": "https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/cookie-mutation-exfil.yaml",
+    "urls": [
+        {
+            "url": "https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/cookie-mutation-exfil.yaml",
+            "name": "cookie-mutation-exfil"
+        }
+    ]
+}

