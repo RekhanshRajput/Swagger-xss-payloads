@@ -1,0 +1,9 @@
+{
+    "url": "https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-jira.yaml",
+    "urls": [
+        {
+            "url": "https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-jira.yaml",
+            "name": "login-jira"
+        }
+    ]
+}

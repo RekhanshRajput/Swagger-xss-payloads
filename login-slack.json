@@ -1,0 +1,9 @@
+{
+    "url": "https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-slack.yaml",
+    "urls": [
+        {
+            "url": "https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-slack.yaml",
+            "name": "login-slack"
+        }
+    ]
+}

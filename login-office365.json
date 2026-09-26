@@ -1,0 +1,9 @@
+{
+    "url": "https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-office365.yaml",
+    "urls": [
+        {
+            "url": "https://raw.githubusercontent.com/RekhanshRajput/Swagger-xss-payloads/refs/heads/main/login-office365.yaml",
+            "name": "login-office365"
+        }
+    ]
+}

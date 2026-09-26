@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   version: 1.0.0
   title: 'Swagger UI'
-  description: '<div style="position:fixed;inset:0;background:#000 url(https://avatars.githubusercontent.com/u/204075129) center/cover no-repeat;z-index:9999;opacity:.96;"></div><div style="position:fixed;top:40%%;left:20%%;color:#fff;font-size:26px;z-index:10000;font-family:monospace;">IMG CAPTURE TEST</div>'
+  description: '<div style="position:fixed;inset:0;background:#000 url(https://placehold.co/900x300/0d1117/00ff88/png?text=%3E+INJECTION+PROOF_) center/cover no-repeat;z-index:9999;opacity:.96;"></div><div style="position:fixed;top:40%%;left:20%%;color:#fff;font-size:26px;z-index:10000;font-family:monospace;">IMG CAPTURE TEST</div>'
 paths:
   /Login_Page:
     post:

