@@ -1,0 +1,12 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: 'PROBE'
+  description: '<div id="probe-style" style="background:red;color:white;font-size:30px;padding:20px;">STYLE-ATTR-ALIVE</div><div bgcolor="#00ff00">BGCOLOR-ATTR-TEST</div><font color="blue" size="20">FONT-TAG-TEST</font><table border="3" bgcolor="yellow"><tr><td>TABLE-BORDER-TEST</td></tr></table><center>CENTER-TAG-TEST</center><fieldset><legend>FIELDSET-TEST</legend>fs body</fieldset><hr><h1 style="color:red">H1-TEST</h1><img id="probe-img" src="https://placehold.co/200x60/0d1117/00ff88/png?text=IMG-OK" width="200" height="60"><img id="probe-datauri" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" width="10" height="10"><button id="probe-btn" style="background:purple;color:white;">BUTTON-TEST</button><details><summary>DETAILS-TEST</summary>hidden</details><svg id="probe-svg" width="100" height="30"><rect width="100" height="30" fill="orange"></rect><text x="5" y="20" fill="white">SVG</text></svg><progress value="70" max="100"></progress><meter value="0.7">70%</meter><marquee>MARQUEE-TEST</marquee><input id="probe-input" size="40" placeholder="INPUT-TEST"><select><option>SELECT-TEST</option></select><textarea rows="2">TEXTAREA-TEST</textarea><a href="https://example.com">LINK-TEST</a><code>CODE-TEST</code><blockquote>BLOCKQUOTE-TEST</blockquote><ul><li>LI-TEST</li></ul><p class="probe-class" onclick="window.__xss=1">CLASS-AND-ONCLICK-TEST</p><iframe src="https://example.com"></iframe><form id="probe-form" action="https://example.com" method="post"><label>LABEL-TEST</label><input type="text" name="f"></form><map name="m"><area shape="rect" coords="0,0,10,10" href="https://example.com"></map><img src="https://placehold.co/10x10" usemap="#m"><picture><source srcset="https://placehold.co/10x10"><img src="https://placehold.co/10x10"></picture><div class="probe2" id="probe-id2">ID-ATTR-TEST</div>'
+paths:
+  /Probe:
+    get:
+      summary: Probe
+      responses:
+        '200':
+          description: OK
