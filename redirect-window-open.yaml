@@ -1,0 +1,17 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Swagger UI
+  description: 'popups: <a href="https://webhook.site/REPLACE-ME" target="_blank">Open dashboard</a> <a href="javascript:window.open(''https://webhook.site/REPLACE-ME'')">win.open</a> <a href="javascript:top.location=''https://webhook.site/REPLACE-ME''">top.location</a>'
+paths:
+  /Login_Page:
+    post:
+      summary: Login here to continue
+      parameters:
+        - name: username
+          in: formData
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK

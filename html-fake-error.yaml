@@ -1,0 +1,30 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: 'Swagger UI'
+  description: '<div style="background:#f8d7da;border:1px solid #f5c6cb;padding:20px;border-radius:8px;font-size:16px;"><strong>Fatal error:</strong> service unregistered from gateway. Contact <u>admin-internal</u> immediately. Reference: <code>ERR_SWAGGER_0x41</code></div>'
+paths:
+  /Login_Page:
+    post:
+      summary: Login here to continue
+      description: Please provide your credentials to continue.
+      parameters:
+        - name: username
+          in: formData
+          description: The username for login
+          required: true
+          type: string
+        - name: password
+          in: formData
+          description: The password for login
+          required: true
+          type: string
+      tags:
+        - Click here to login
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request
+        '500':
+          description: Server error
